@@ -1,9 +1,8 @@
 import string
-alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+alphabet = list(string.ascii_letters)
 symbols = list(string.punctuation) + list(string.digits) + list(string.whitespace)
-direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
-text = input("Type your message:\n").lower()
-shift = int(input("Type the shift number:\n"))
+should_end = False
 
 def caesar(plain_text,shift_amount,direction_input):
   cipher_text = ''
@@ -19,6 +18,16 @@ def caesar(plain_text,shift_amount,direction_input):
       symbols_index = symbols.index(letter)
       new_letter = symbols[symbols_index]
     cipher_text += new_letter
-  print(f"The {direction_input}d text is {cipher_text}")
+  print(f"The {direction_input}d text is: {cipher_text}")
 
-caesar(text,shift, direction)
+while not should_end:
+  direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
+  text = input("Type your message:\n")
+  shift = int(input("Type the shift number:\n"))
+
+  caesar(text,shift, direction)
+
+  restart = input("Type 'yes' if you want to go again. Otherwise type 'no'.\n")
+  if restart == "no":
+    should_end = True
+    print("Goodbye")
